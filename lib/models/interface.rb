@@ -1,4 +1,12 @@
-class Interface
+ class Interface 
+    #< ActiveRecord::Base
+#     validate :watering_date_cannot_be_in_the_future
+#     def watering_date_cannot_be_in_the_future
+#         errors.add(:watering_date, "can't be in the future") if
+#           !watering_date.blank? and watering_date < Date.today
+#     end
+    
+
     attr_accessor :prompt
     def initialize
         @prompt = TTY::Prompt.new
@@ -13,6 +21,11 @@ class Interface
     end
     
     def run
+        
+        # @prompt.ask('date?') do |q|
+        #      q.validate  /^((0[1-9])|(1[0-2]))\/(\d{2})$/
+        #  end
+
         greet
         username_input = gets.chomp.downcase
         self.loading(30, "~", 0.1)
@@ -64,6 +77,7 @@ class Interface
         menu_selection = @prompt.select("options",menu)
         case menu_selection
         when "update water status"
+            #$$$$$$$$need to check if it is future date. not possible
             date =  @prompt.ask("when did you water #{selected_plant.nickname}? (in mm/dd)", convert: :date)
             selected_plant.update_waterdate_status(date)
             # selected_plant.update(watering_date: date)
@@ -143,5 +157,7 @@ class Interface
     def my_plant_list(my_plant, index)
         my_plant.show_each_plant_spec(index)
     end
+
+    
 
 end
