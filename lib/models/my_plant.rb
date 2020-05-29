@@ -130,7 +130,7 @@ class MyPlant < ActiveRecord::Base
             today: #{today} | future_date: #{future_date} |self.watering_date: #{self.watering_date}"
         end
 
-          binding.pry
+        # binding.pry
         
         # #Not watered and since created
         # if self.watering_date == nil && self.watered==false && today > created_date
